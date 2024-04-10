@@ -1,0 +1,4 @@
+pypdf~=4.1.0
+tensorflow~=2.16.1
+transformers~=4.39.3
+numpy~=1.26.4
