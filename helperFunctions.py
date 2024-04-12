@@ -1,7 +1,7 @@
 from transformers import AutoTokenizer, TFAutoModel, AutoModel
 import tensorflow as tf
 
-model_name = "danielheinz/e5-base-sts-en-de"
+model_name = "intfloat/multilingual-e5-large"
 tokenizer = AutoTokenizer.from_pretrained(model_name)
 model = TFAutoModel.from_pretrained(model_name)
 

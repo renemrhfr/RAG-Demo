@@ -16,7 +16,7 @@ for file in os.listdir(os.path.join('documents', 'export')):
 for file_entry in files_to_process:
     filename = os.path.basename(file_entry)
     export_filename, _ = os.path.splitext(filename)
-    output_file_path = os.path.join('documents', 'embeddings', export_filename + '-embeddings.txt')  # Update output path for each file
+    output_file_path = os.path.join('documents', 'embeddings', export_filename + '-embeddings.txt')
 
     with open(file_entry, 'r', encoding='utf-8') as file:
         content = file.read()

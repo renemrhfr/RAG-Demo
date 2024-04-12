@@ -36,6 +36,9 @@ When the User asks a question, we search through our chunks for the most relevan
 - First, install the required dependencies:
 The dependencies are listed in requirements.txt.
 
+- Inside your project, create the following folders:
+documents/embeddings, documents/export, documents/pdf
+
 - Convert the "knowledge" in a simplified Data-Format. 
 To convert your PDF documents into text format, first ensure all relevant PDFs are placed in the documents/pdf folder. 
 Then, run convertPdf.py
@@ -52,9 +55,7 @@ Note that the Question of the User and the instructions also count as Tokens. So
 You do not need to use Llama for this process.
 If you simply want to try out the retrival of the most relevant contexts, feel free to browse https://huggingface.co/models?library=sentence-transformers for a smaller model and filter by your desired language.
 Simply change model_name in helperFunctions.py to try a different one.
-In this Project i used danielheinz/e5-base-sts-en-de, as I think it works great on legal documents and also works great in german, which I needed for my project.
-
-
+In this Project i used intfloat/multilingual-e5-large, which can create text embeddings for up to 512 Tokens.
 
 - Run createEmbeddings.py
 This will iterate over all files in documents/export and will put them into a format that can be compared to a User input.
