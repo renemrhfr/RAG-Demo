@@ -10,16 +10,21 @@ With RAG you can use an existing, already great working Large Language Model as 
 As there are already Open-Source Models like Llama available, you can run all of this on-premise, without the need to pass your data
 to external servers.
 
-LLaMA is a recommended choice due to its open-source nature and the ability to run on-premise, ensuring data privacy.
-It is already pre-trained on Natural Language Processing, so it can understand semantics and give meaningful responses.
-You can download LLaMA from https://llama.meta.com.
+LLaMA or Mistral are recommended choices due to their open-source nature and the ability to run on-premise, ensuring data privacy.
+They are already pre-trained on Natural Language Processing, so they can understand semantics and give meaningful responses.
+
+Llama: https://llama.meta.com
+
+Mistral: https://mistral.ai
+
+To run the models locally i recommend Ollama - its super easy to setup: https://ollama.com
 
 ### How does RAG work?
 As you may have heard, in Chatbots like ChatGPT, Microsoft Copilot, Bing etc. instructions are passed to the
 Large Language Model before you can ask a question. That way it can be assured that the Large Language Model does respond in a certain way and that it
 does not give information that would violate the terms of use.
 
-This is done by "injecting" a prompt before the user input, tailoring the responses of the Large Language Model -  also known as "prompt engineering".
+This is done by "injecting" a prompt before the user input, tailoring the responses of the Large Language Model -  also known as "prompt injection".
 
 Now imagine if the "pre-prompt" would not only contain instructions for the model, but also the information that the Large Language Model needs to answer a question.
 This is exactly what we will implement here.
@@ -61,10 +66,12 @@ In this Project i used intfloat/multilingual-e5-large, which can create text emb
 This will iterate over all files in documents/export and will put them into a format that can be compared to a User input.
 If you want to learn more about this process, look into Tokenization, Text Embeddings and what it means to calculate Cosine Similarity.
 
-- Now you can run evaluateEmbedding: Try asking a Question about your documents in the terminal. 
-The sorted_cosine_similarities list will contain the top 5 most relevant chunks from your documents. An example of an instruction
-will be printed out. Try to pass this instruction into ChatGPT and see if it responds in a way you would expect.
-Feel free to experiment from here!
+- Now you can run evaluateEmbedding.py: Try asking a Question about your documents in the terminal. 
+The sorted_cosine_similarities list will contain the top 5 most relevant chunks from your documents.
+The script then tries to make a request to Ollama and print out the resopnse.
+If you run evaluateEmbedding.py -D, the prompt will be printed out instead. Try to pass this instruction into ChatGPT and see if it responds in a way you would expect.
+Running evaulateEmbedding.py -V will activate verbose output, so the prompt will be printed out AND sent to the LLM.
+
 
 ### How to expand
 In this project i show you a simplified Version of storing embeddings - in a bigger, scalable Scenario we would not store 
