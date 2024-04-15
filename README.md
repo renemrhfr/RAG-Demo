@@ -38,39 +38,43 @@ This is why we need to slice our knowledge into coherent chunks of knowledge.
 When the User asks a question, we search through our chunks for the most relevant one(s) and pass this as context to the Large Language Model.
 
 ### How to use this project
-- First, install the required dependencies:
-The dependencies are listed in requirements.txt.
+#### Install the required dependencies
+The dependencies are  listed in requirements.txt
 
-- Inside your project, create the following folders:
+#### Inside your project, create the following folders:
 documents/embeddings, documents/export, documents/pdf
 
-- Convert the "knowledge" in a simplified Data-Format. 
-To convert your PDF documents into text format, first ensure all relevant PDFs are placed in the documents/pdf folder. 
-Then, run convertPdf.py
+#### Put the relevant Documents in documents/pdf and run convertPdf.py
 This script reads each PDF and outputs its text content to the documents/export directory as a .txt file.
 
-- Navigate to documents/export. You will find your Documents as a .txt file. We have to split the knowledge into coherent
-chunks. Put \<NEXT\> tokens wherever a new part of the knowledge starts that can stand for itself and also remove any irrelevant information such as
-Page Counter, Table of Contents and so on. 
+#### Navigate to documents/export. You will find your Documents as a .txt file. 
+
+We have to split the knowledge into coherent chunks. Put \<NEXT\> tokens wherever a new part of the knowledge starts that 
+can stand for itself and also remove any irrelevant information such as Page Counter, Table of Contents and so on. 
+
 The \<NEXT\> Token is just made up by me in this project and simply serves as a marker to split the text into segments, each of which contains a complete idea or piece of information.
 This helps in efficiently retrieving relevant content based on user queries.
 The script will first check if all slices are inside the bounds of the Token-Limit and will throw an error if not.
-Note: the Token-Limit depends on the Model you choose. Adjust the max_token_length in createEmbeddings.py accordingly.
-Note that the Question of the User and the instructions also count as Tokens. So make sure to leave some tokens for this.
-You do not need to use Llama for this process.
-If you simply want to try out the retrival of the most relevant contexts, feel free to browse https://huggingface.co/models?library=sentence-transformers for a smaller model and filter by your desired language.
-Simply change model_name in helperFunctions.py to try a different one.
-In this Project i used intfloat/multilingual-e5-large, which can create text embeddings for up to 512 Tokens.
 
-- Run createEmbeddings.py
+Note: the Token-Limit depends on the Model you choose. Adjust the max_token_length in createEmbeddings.py accordingly.
+Be aware that when talking to the Large Language Model the Question of the User and the instructions also count as Tokens. 
+So make sure to leave some tokens for this.
+
+In this Project i used intfloat/multilingual-e5-large as model, which can create text embeddings for up to 512 Tokens.
+
+Feel free to browse https://huggingface.co/models?library=sentence-transformers for a smaller model and filter by your desired language.
+Simply change model_name in helperFunctions.py to try a different one.
+
+#### Run createEmbeddings.py
 This will iterate over all files in documents/export and will put them into a format that can be compared to a User input.
 If you want to learn more about this process, look into Tokenization, Text Embeddings and what it means to calculate Cosine Similarity.
 
-- Now you can run evaluateEmbedding.py: Try asking a Question about your documents in the terminal. 
-The sorted_cosine_similarities list will contain the top 5 most relevant chunks from your documents.
-The script then tries to make a request to Ollama and print out the resopnse.
-If you run evaluateEmbedding.py -D, the prompt will be printed out instead. Try to pass this instruction into ChatGPT and see if it responds in a way you would expect.
-Running evaulateEmbedding.py -V will activate verbose output, so the prompt will be printed out AND sent to the LLM.
+#### Now you can run rag.py: Try asking a Question about your documents in the terminal. 
+The script will try to call the API exposed by Ollama to talk to the Large Language Model.
+
+> If you run rag.py -D, the prompt will be printed out instead of calling the LLM. Try to pass this instruction into ChatGPT and see if it responds in a way you would expect.
+
+> Running rag.py -V will activate verbose output, so the prompt will be printed out AND sent to the LLM.
 
 
 ### How to expand
