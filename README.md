@@ -48,7 +48,7 @@ You will now be given a relevant context and a Question from a User.
 
 ## How do we find the relevant contexts from our knowledge chunks?
 We are going to convert the documents into text embeddings, which are numerical vectors where similar texts and paragarphs are positioned close to each other.
-For this process i used the model `intfloat/multilingual-e5-large` from https://huggingface.com
+For this process i used the model `intfloat/multilingual-e5-large` from https://huggingface.co
 
 Then, when a user asks a question, we convert the question aswell and compare the similarity of the vector to the vectors of your knowledge chunks.
 We can then pass the closest one(s) as Context in the prompt.
