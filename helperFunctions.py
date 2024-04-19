@@ -13,9 +13,8 @@ def generate_embedding(text):
     """
     encoded_input = tokenizer(
         text, padding=True, truncation=True, return_tensors='tf')
-    with tf.GradientTape() as tape:
-        outputs = model(encoded_input)
-        embeddings = outputs.last_hidden_state
+    outputs = model(encoded_input)
+    embeddings = outputs.last_hidden_state
     return tf.reduce_mean(embeddings, axis=1)
 
 

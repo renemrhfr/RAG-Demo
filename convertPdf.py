@@ -2,10 +2,16 @@ import os
 from pypdf import PdfReader
 
 files_to_process = []
-for file in os.listdir(os.path.join('documents', 'pdf')):
-    full_path = os.path.join(os.path.join('documents', 'pdf'), file)
-    if os.path.isfile(full_path):
-        files_to_process.append(full_path)
+
+
+def collectfiles():
+    """
+    Collects files from documents/pdf and adds them to files_to_process
+    """
+    for file in os.listdir(os.path.join('documents', 'pdf')):
+        full_path = os.path.join(os.path.join('documents', 'pdf'), file)
+        if os.path.isfile(full_path):
+            files_to_process.append(full_path)
 
 
 def extract_text_from_pdf(pdf_path):
@@ -31,5 +37,6 @@ def extract_text_from_pdf(pdf_path):
 
 
 if __name__ == "__main__":
+    collectfiles()
     for file in files_to_process:
         extract_text_from_pdf(file)
